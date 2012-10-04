@@ -1,8 +1,5 @@
 package eu.mihailvelikov.scarsdale;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;

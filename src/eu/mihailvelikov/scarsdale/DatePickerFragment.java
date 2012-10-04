@@ -20,7 +20,8 @@ public class DatePickerFragment extends DialogFragment {
 		int month = c.get(Calendar.MONTH);
 		int year = c.get(Calendar.YEAR);
 		DatePickerDialog dpd = new DatePickerDialog(getActivity(), (DatePickerActivity) getActivity(), year, month, day);
-		dpd.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+		long thirteenDaysEarlier = System.currentTimeMillis() - 1000;// - 1123200000;
+		dpd.getDatePicker().setMinDate(thirteenDaysEarlier);
 		return dpd;
 	}
 

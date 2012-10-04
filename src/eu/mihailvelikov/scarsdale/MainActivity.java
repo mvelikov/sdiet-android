@@ -1,53 +1,60 @@
 package eu.mihailvelikov.scarsdale;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import eu.mihailvelikov.scarsdale.R;
-import android.app.Activity;
+
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.widget.CalendarView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
-
+public class MainActivity extends FragmentActivity {
 	static final int ID_DIALOG = 1;
 	private static final int REQUEST_CODE = 2;
-	private int mDay;
+	private SharedPreferences mPrefs;
+	public int mDay;
 	private int mMonth;
 	private int mYear;
-	private SharedPreferences mPrefs;
+	private GregorianCalendar mStartDate;
+	private GregorianCalendar mEndDate;
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
-		Intent intent = new Intent(this, DatePickerActivity.class);
-		// CalendarView calendar = (CalendarView)
-		// findViewById(R.id.calendarView1);
-		// calendar.setMinDate(System.currentTimeMillis() - 1000);
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		if (mPrefs.contains("day") && mPrefs.contains("month")
 				&& mPrefs.contains("year")) {
 			mDay = mPrefs.getInt("day", 1);
 			mMonth = mPrefs.getInt("month", 1);
 			mYear = mPrefs.getInt("year", 1970);
-			setCalendar();
+
 		} else {
+			Intent intent = new Intent(this, DatePickerActivity.class);
 			startActivityForResult(intent, REQUEST_CODE);
 
 		}
-	}
+		mStartDate = new GregorianCalendar(mYear, mMonth, mDay);
+		long time = mStartDate.getTimeInMillis();
+		time += 24 * 3600 * 1000 * 14; // 14 days
+		mEndDate = (GregorianCalendar) mStartDate.clone();
+		mEndDate.add(Calendar.DAY_OF_MONTH, 15);
+		CalendarAdapter.setStartDate(mStartDate);
+		CalendarAdapter.setEndDate(mEndDate);
+		
+		//savedInstanceState.putInt("day", mDay);
+		setContentView(R.layout.main);
+		android.app.Fragment calendarView = new CalendarView();
+		CalendarView.setStartDate(mStartDate);
 
-	private void setCalendar() {
-		GregorianCalendar d = new GregorianCalendar(mYear, mMonth, mDay);
-
-		CalendarView calendar = (CalendarView) findViewById(R.id.calendarView1);
-		calendar.setDate(d.getTimeInMillis());
+		FragmentTransaction ft = getFragmentManager().beginTransaction();
+		ft.add(android.R.id.content, calendarView).commit();
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -62,10 +69,10 @@ public class MainActivity extends Activity {
 			edit.putInt("month", mMonth);
 			edit.putInt("day", mDay);
 			edit.apply();
-			setCalendar();
 		} else {
 			Toast.makeText(this, "No date was selected!", Toast.LENGTH_LONG)
 					.show();
 		}
 	}
+	
 }
