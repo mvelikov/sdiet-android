@@ -15,7 +15,8 @@ public final class R {
         public static final int out_to_right=0x7f040003;
     }
     public static final class array {
-        public static final int days_array=0x7f060000;
+        public static final int day_one=0x7f050000;
+        public static final int days_array=0x7f050001;
     }
     public static final class attr {
     }
@@ -46,10 +47,13 @@ public final class R {
         public static final int main=0x7f030004;
     }
     public static final class string {
-        public static final int app_name=0x7f050001;
-        public static final int calendar=0x7f050000;
-        public static final int current_month_placeholder=0x7f050002;
-        public static final int next_month_placeholder=0x7f050004;
-        public static final int previous_month_placeholder=0x7f050003;
+        public static final int app_name=0x7f060001;
+        public static final int breakfast=0x7f060005;
+        public static final int calendar=0x7f060000;
+        public static final int current_month_placeholder=0x7f060002;
+        public static final int day_one_dinner=0x7f060007;
+        public static final int day_one_lunch=0x7f060006;
+        public static final int next_month_placeholder=0x7f060004;
+        public static final int previous_month_placeholder=0x7f060003;
     }
 }

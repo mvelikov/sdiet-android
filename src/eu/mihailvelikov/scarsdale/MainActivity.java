@@ -1,5 +1,9 @@
 package eu.mihailvelikov.scarsdale;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -9,6 +13,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -47,7 +52,18 @@ public class MainActivity extends FragmentActivity {
 		mEndDate.add(Calendar.DAY_OF_MONTH, 15);
 		CalendarAdapter.setStartDate(mStartDate);
 		CalendarAdapter.setEndDate(mEndDate);
-		
+
+		try {
+			BufferedReader reader = new BufferedReader(
+			        new InputStreamReader(getAssets().open("diet.txt")));
+
+			    // do reading
+
+			    reader.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//savedInstanceState.putInt("day", mDay);
 		setContentView(R.layout.main);
 		android.app.Fragment calendarView = new CalendarView();
