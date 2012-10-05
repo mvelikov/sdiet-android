@@ -8,13 +8,13 @@
     <string name="next_month_placeholder">&gt;&gt;</string>
 
     <string-array name="days_array">
-        <item>M</item>
-        <item>T</item>
-        <item>W</item>
-        <item>T</item>
-        <item>F</item>
-        <item>S</item>
-        <item>S</item>
+        <item>П</item>
+        <item>В</item>
+        <item>С</item>
+        <item>Ч</item>
+        <item>П</item>
+        <item>С</item>
+        <item>н</item>
     </string-array>
 
     <string name="breakfast">1/2 грейпфурт (ако не разполагате – плодове според сезона);
