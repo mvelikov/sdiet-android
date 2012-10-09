@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/breakfast_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/breakfast"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/breakfast_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/lunch_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/lunch"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+    <TextView 
+        android:id="@+id/lunch_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+    
+    <TextView 
+        android:id="@+id/dinner_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dinner"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+    <TextView 
+        android:id="@+id/dinner_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+</LinearLayout>

@@ -6,6 +6,9 @@
     <string name="current_month_placeholder">Януари 1970</string>
     <string name="previous_month_placeholder">&lt;&lt;</string>
     <string name="next_month_placeholder">&gt;&gt;</string>
+    <string name="breakfast">Закуска</string>
+    <string name="lunch">Обяд</string>
+    <string name="dinner">Вечеря</string>
 
     <string-array name="days_array">
         <item>П</item>
@@ -17,7 +20,7 @@
         <item>н</item>
     </string-array>
 
-    <string name="breakfast">1/2 грейпфурт (ако не разполагате – плодове според сезона);
+    <string name="day_one_breakfast">1/2 грейпфурт (ако не разполагате – плодове според сезона);
 една филия препечена протеинов или пълнозърнест хляб, без да се намазва;
 кафе или чай без захар, сметана или мляко</string>
     <string name="day_one_lunch">подбрано студено нетлъсто месо (по избор – пилешко, пуешко, език, крехко говеждо);

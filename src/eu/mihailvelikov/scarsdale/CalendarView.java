@@ -8,6 +8,7 @@ import eu.mihailvelikov.scarsdale.R;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.GestureDetector;
@@ -97,9 +98,19 @@ public class CalendarView extends android.app.Fragment {
 			final TextView dayView = (TextView) view.findViewById(R.id.date);
 			final CharSequence text = dayView.getText();
 			if (text != null && !"".equals(text)) {
-				calendarAdapter.setSelected(calendar.get(Calendar.YEAR),
-						calendar.get(Calendar.MONTH),
-						Integer.valueOf(String.valueOf(text)));
+				int year = calendar.get(Calendar.YEAR);
+				int month = Calendar.MONTH;
+				int day = Integer.valueOf(String.valueOf(text));
+				calendarAdapter.setSelected(year,
+						month,
+						day);
+				
+				Intent i = new Intent(getActivity(), DietDayActivity.class);
+				i.putExtra("year", year);
+				i.putExtra("month", month);
+				i.putExtra("day", day);
+				
+				getActivity().startActivity(i);
 			}
 		}
 	}
