@@ -69,13 +69,16 @@ public class CalendarAdapter extends BaseAdapter {
 			// view.setBackgroundDrawable(null);
 			dayView.setText(null);
 		} else {
-
+			boolean clickable = false;
 			if (currentItem.equals(today) && currentItem.getIsDietDay()) {
 				view.setBackgroundResource(R.drawable.today_diet_day_background);
+				clickable = true;
 			} else if (currentItem.equals(selected) && currentItem.getIsDietDay()) {
 				view.setBackgroundResource(R.drawable.selected_diet_day_background);
+				clickable = true;
 			} else if (currentItem.getIsDietDay()) {
 				view.setBackgroundResource(R.drawable.diet_day_background);
+				clickable = true;
 			} else if (currentItem.equals(today)) {
 				view.setBackgroundResource(R.drawable.today_background);
 			} else if (currentItem.equals(selected)) {
@@ -83,7 +86,10 @@ public class CalendarAdapter extends BaseAdapter {
 			} else {
 				view.setBackgroundResource(R.drawable.normal_background);
 			}
+			view.setClickable(!clickable);
+
 			dayView.setText(currentItem.text);
+
 		}
 
 		return view;

@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.LayoutInflater;
@@ -96,6 +97,8 @@ public class CalendarView extends android.app.Fragment {
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
 			final TextView dayView = (TextView) view.findViewById(R.id.date);
+			boolean isDayClickable = dayView.isClickable();
+
 			final CharSequence text = dayView.getText();
 			if (text != null && !"".equals(text)) {
 				int year = calendar.get(Calendar.YEAR);
@@ -105,14 +108,20 @@ public class CalendarView extends android.app.Fragment {
 						month,
 						day);
 				
-				Intent i = new Intent(getActivity(), DietDayActivity.class);
-				i.putExtra("year", year);
-				i.putExtra("month", month);
-				i.putExtra("day", day);
-				
-				getActivity().startActivity(i);
+				if (!isDayClickable) {
+					Log.i("isDietString", "Diet");
+					Intent i = new Intent(getActivity(), DietDayActivity.class);
+
+					i.putExtra("year", year);
+					i.putExtra("month", month);
+					i.putExtra("day", day);
+					
+					getActivity().startActivity(i);
+				}
 			}
+			
 		}
+		
 	}
 
 	protected final void onNextMonth() {
