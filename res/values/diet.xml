@@ -2,7 +2,7 @@
 <resources>
     <array name="day_one">
         <item>@string/breakfast</item>
-        <item>@string/day_one_lunch</item>
-        <item>@string/day_one_dinner</item>
+        <item></item>
+        <item></item>
     </array>
 </resources>

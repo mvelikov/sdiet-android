@@ -37,7 +37,6 @@ public class CalendarView extends android.app.Fragment {
 	private ViewSwitcher calendarSwitcher;
 	private TextView currentMonth;
 	private CalendarAdapter calendarAdapter;
-	private static GregorianCalendar mStartDate;
 
 	public CalendarView() {
 		calendar = Calendar.getInstance();
@@ -102,7 +101,7 @@ public class CalendarView extends android.app.Fragment {
 			final CharSequence text = dayView.getText();
 			if (text != null && !"".equals(text)) {
 				int year = calendar.get(Calendar.YEAR);
-				int month = Calendar.MONTH;
+				int month = calendar.get(Calendar.MONTH);
 				int day = Integer.valueOf(String.valueOf(text));
 				calendarAdapter.setSelected(year,
 						month,
@@ -112,9 +111,14 @@ public class CalendarView extends android.app.Fragment {
 					Log.i("isDietString", "Diet");
 					Intent i = new Intent(getActivity(), DietDayActivity.class);
 
-					i.putExtra("year", year);
-					i.putExtra("month", month);
-					i.putExtra("day", day);
+					i.putExtra("selectedYear", year);
+					i.putExtra("selectedMonth", month);
+					i.putExtra("selectedDay", day);
+					i.putExtra("startYear", MainActivity.mStartDate.get(Calendar.YEAR));
+					i.putExtra("startMonth", MainActivity.mStartDate.get(Calendar.MONTH));
+					i.putExtra("startDay", MainActivity.mStartDate.get(Calendar.DATE));
+					//i.putExtra("end", MainActivity.mEndDate);
+					//i.putExtra("start");
 					
 					getActivity().startActivity(i);
 				}
@@ -147,15 +151,6 @@ public class CalendarView extends android.app.Fragment {
 			calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH) - 1);
 		}
 		updateCurrentMonth();
-	}
-
-
-	public GregorianCalendar getStartDate() {
-		return mStartDate;
-	}
-
-	public static void setStartDate(GregorianCalendar date) {
-		mStartDate = date;
 	}
 
 	private final class NextMonthClickListener implements OnClickListener {

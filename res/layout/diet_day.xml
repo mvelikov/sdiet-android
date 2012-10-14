@@ -1,48 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
-    <TextView
-        android:id="@+id/breakfast_title"
-        android:layout_width="match_parent"
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/breakfast"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_marginLeft="6dp"
+        android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/breakfast_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        <TextView
+            android:id="@+id/breakfast_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/breakfast"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <TextView
-        android:id="@+id/lunch_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/lunch"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-    
-    <TextView 
-        android:id="@+id/lunch_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium"/>
-    
-    <TextView 
-        android:id="@+id/dinner_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/dinner"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-    
-    <TextView 
-        android:id="@+id/dinner_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium"/>
-</LinearLayout>
+        <TextView
+            android:id="@+id/breakfast_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/day_breakfast"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/lunch_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lunch"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/lunch_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/dinner_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dinner"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/dinner_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/replace_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/replace_title"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+        <TextView
+            android:id="@+id/replace_tip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/replace"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/replace_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lunch_replace"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </LinearLayout>
+
+</ScrollView>

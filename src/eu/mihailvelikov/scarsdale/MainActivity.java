@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity {
@@ -23,8 +24,8 @@ public class MainActivity extends FragmentActivity {
 	public int mDay;
 	private int mMonth;
 	private int mYear;
-	private GregorianCalendar mStartDate;
-	private GregorianCalendar mEndDate;
+	public static GregorianCalendar mStartDate;
+	public static GregorianCalendar mEndDate;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +43,7 @@ public class MainActivity extends FragmentActivity {
 
 		}
 		mStartDate = new GregorianCalendar(mYear, mMonth, mDay);
-		// long time = mStartDate.getTimeInMillis();
-		// time += 24 * 3600 * 1000 * 14; // 14 days
+
 		mEndDate = (GregorianCalendar) mStartDate.clone();
 		mEndDate.add(Calendar.DAY_OF_MONTH, 15);
 		CalendarAdapter.setStartDate(mStartDate);
@@ -52,7 +52,7 @@ public class MainActivity extends FragmentActivity {
 		// savedInstanceState.putInt("day", mDay);
 		setContentView(R.layout.main);
 		android.app.Fragment calendarView = new CalendarView();
-		CalendarView.setStartDate(mStartDate);
+		// CalendarView.setStartDate(mStartDate);
 
 		FragmentTransaction ft = getFragmentManager().beginTransaction();
 		ft.add(android.R.id.content, calendarView).commit();
@@ -70,6 +70,8 @@ public class MainActivity extends FragmentActivity {
 			edit.putInt("month", mMonth);
 			edit.putInt("day", mDay);
 			edit.apply();
+			ViewGroup vg = (ViewGroup) findViewById(R.layout.main);
+			vg.invalidate();
 		} else {
 			Toast.makeText(this, "No date was selected!", Toast.LENGTH_LONG)
 					.show();

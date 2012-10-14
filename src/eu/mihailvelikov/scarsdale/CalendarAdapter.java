@@ -28,12 +28,6 @@ public class CalendarAdapter extends BaseAdapter {
 		calendar.set(Calendar.DAY_OF_MONTH, 1);
 		inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		try {
-			
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override
