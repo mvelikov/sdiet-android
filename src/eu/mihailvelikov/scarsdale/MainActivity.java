@@ -45,7 +45,7 @@ public class MainActivity extends FragmentActivity {
 		mStartDate = new GregorianCalendar(mYear, mMonth, mDay);
 
 		mEndDate = (GregorianCalendar) mStartDate.clone();
-		mEndDate.add(Calendar.DAY_OF_MONTH, 15);
+		mEndDate.add(Calendar.DAY_OF_MONTH, 14);
 		CalendarAdapter.setStartDate(mStartDate);
 		CalendarAdapter.setEndDate(mEndDate);
 

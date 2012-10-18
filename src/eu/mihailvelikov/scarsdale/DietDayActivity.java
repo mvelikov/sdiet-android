@@ -77,15 +77,20 @@ public class DietDayActivity extends Activity {
 		String[] lunchArray = getResources()
 				.getStringArray(R.array.lunch_array);
 		TextView viewLunchText = (TextView) findViewById(R.id.lunch_text);
+		
+		TextView viewTitle = (TextView) findViewById(R.id.title);
+		String titleStr = getString(R.string.day);
+		String title = String.format(titleStr, currentDietDay + 1);
+		viewTitle.setText(title);
 		// Days from 8 to 14 repeat first 7 days
 		if (currentDietDay > 6) {
-			currentDietDay -= 7;
+			currentDietDay -= 6;
 		}
 
 		try {
 			// loads details for current days
-			viewLunchText.setText(lunchArray[(int) currentDietDay - 1]);
-			viewDinnerText.setText(dinnerArray[(int) currentDietDay - 1]);
+			viewLunchText.setText(lunchArray[(int) currentDietDay]);
+			viewDinnerText.setText(dinnerArray[(int) currentDietDay]);
 		} catch (Exception e) {
 			Toast.makeText(this, R.string.invalid_diet_day, Toast.LENGTH_LONG)
 					.show();

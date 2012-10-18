@@ -75,4 +75,6 @@
 \t&#8226; кафе, чай газирана вода с малко лимон;</string>
 <string name="replace">\tAко желаете, можете да заместите някое от менютата за обяд от диетата „Скарсдейл” със следното меню:</string>
 <string name="replace_title">Заместващ обяд</string>
+    <string name="day_one">Ден 1</string>
+    <string name="day">Ден %1$s</string>
 </resources>

@@ -175,7 +175,7 @@ public class CalendarAdapter extends BaseAdapter {
 		protected boolean isDietDay() {
 			GregorianCalendar g = new GregorianCalendar(year, month, day);
 			//GregorianCalendar today = new GregorianCalendar();
-			return g.after(mStartDate) && g.before(mEndDate);
+			return g.after(mStartDate) && g.before(mEndDate) || g.equals(mStartDate);
 		}
 
 		public boolean getIsDietDay() {
