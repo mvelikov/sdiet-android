@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -52,8 +53,8 @@ public class CalendarView extends android.app.Fragment {
 				.inflate(R.layout.calendar, null);
 		final GridView calendarDayGrid = (GridView) calendarLayout
 				.findViewById(R.id.calendar_days_grid);
-		final GestureDetector swipeDetector = new GestureDetector(
-				getActivity(), new SwipeGesture(getActivity()));
+		/*final GestureDetector swipeDetector = new GestureDetector(
+				getActivity(), new SwipeGesture(getActivity()));*/
 		final GridView calendarGrid = (GridView) calendarLayout
 				.findViewById(R.id.calendar_grid);
 		calendarSwitcher = (ViewSwitcher) calendarLayout
@@ -73,12 +74,12 @@ public class CalendarView extends android.app.Fragment {
 		calendarGrid.setOnItemClickListener(new DayItemClickListener());
 
 		calendarGrid.setAdapter(calendarAdapter);
-		calendarGrid.setOnTouchListener(new OnTouchListener() {
+		/*calendarGrid.setOnTouchListener(new OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				return swipeDetector.onTouchEvent(event);
 			}
-		});
+		});*/
 		calendarDayGrid.setAdapter(new ArrayAdapter<String>(getActivity(),
 				R.layout.day_item, getResources().getStringArray(
 						R.array.days_array)));
@@ -166,8 +167,32 @@ public class CalendarView extends android.app.Fragment {
 			onPreviousMonth();
 		}
 	}
+	
+	/*private final class ResetBtnClickListener implements OnClickListener {
 
-	private final class SwipeGesture extends SimpleOnGestureListener {
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			addListenerOnReset();
+		}
+		
+	}
+	
+	protected void addListenerOnReset() {
+		Button resetButton = (Button) findViewById(R.id.reset_btn);
+		resetButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				mPrefs.edit().clear();
+				finish();
+				startActivity(getIntent());
+			}
+		});
+	}*/
+
+	/*private final class SwipeGesture extends SimpleOnGestureListener {
 		private final int swipeMinDistance;
 		private final int swipeThresholdVelocity;
 
@@ -190,5 +215,5 @@ public class CalendarView extends android.app.Fragment {
 			return false;
 		}
 	}
-
+*/
 }

@@ -53,7 +53,7 @@ public class DietDayActivity extends Activity {
 		}*/
 		mStartDate = new GregorianCalendar(mStartYear, mStartMonth, mStartDay);
 
-		TimeZone.setDefault(TimeZone.getTimeZone("Europe/London"));
+
 		GregorianCalendar selectedDate = new GregorianCalendar(mYear, mMonth,
 				mDay);
 		// checks if there is something wrong with dates
@@ -84,7 +84,7 @@ public class DietDayActivity extends Activity {
 		viewTitle.setText(title);
 		// Days from 8 to 14 repeat first 7 days
 		if (currentDietDay > 6) {
-			currentDietDay -= 6;
+			currentDietDay -= 7;
 		}
 
 		try {

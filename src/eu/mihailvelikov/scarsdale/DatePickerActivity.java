@@ -1,11 +1,11 @@
 package eu.mihailvelikov.scarsdale;
 
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
+import android.view.KeyEvent;
 import android.widget.DatePicker;
 
 public class DatePickerActivity extends FragmentActivity implements
@@ -24,7 +24,7 @@ public class DatePickerActivity extends FragmentActivity implements
 		mDatePicker = new DatePickerFragment();
 		mDatePicker.show(getSupportFragmentManager(), "datePicker");
 	}
-	
+
 	public void finish() {
 		Intent data = new Intent();
 
@@ -44,4 +44,19 @@ public class DatePickerActivity extends FragmentActivity implements
 
 		finish();
 	}
+
+//	@Override
+//	public boolean onKeyDown(int keyCode, KeyEvent event) {
+//		if (Integer.parseInt(android.os.Build.VERSION.SDK) < 5
+//				&& keyCode == KeyEvent.KEYCODE_BACK
+//				&& event.getRepeatCount() == 0) {
+//
+//			onBackPressed();
+//		}
+//
+//		return super.onKeyDown(keyCode, event);
+//	}
+//
+//	public void onBackPressed() {
+//	}
 }

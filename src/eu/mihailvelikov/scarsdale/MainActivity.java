@@ -2,6 +2,7 @@ package eu.mihailvelikov.scarsdale;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 import eu.mihailvelikov.scarsdale.R;
 
@@ -14,7 +15,10 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity {
@@ -30,6 +34,7 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		TimeZone.setDefault(TimeZone.getTimeZone("Europe/London"));
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		if (mPrefs.contains("day") && mPrefs.contains("month")
 				&& mPrefs.contains("year")) {
@@ -54,8 +59,11 @@ public class MainActivity extends FragmentActivity {
 		android.app.Fragment calendarView = new CalendarView();
 		// CalendarView.setStartDate(mStartDate);
 
+		
+
 		FragmentTransaction ft = getFragmentManager().beginTransaction();
 		ft.add(android.R.id.content, calendarView).commit();
+		//addListenerOnReset();
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -70,8 +78,14 @@ public class MainActivity extends FragmentActivity {
 			edit.putInt("month", mMonth);
 			edit.putInt("day", mDay);
 			edit.apply();
-			ViewGroup vg = (ViewGroup) findViewById(R.layout.main);
-			vg.invalidate();
+
+			finish();
+			startActivity(getIntent());
+			/*
+			 * ViewGroup vg = (ViewGroup) findViewById(R.layout.main);
+			 * vg.invalidate();
+			 */
+
 		} else {
 			Toast.makeText(this, "No date was selected!", Toast.LENGTH_LONG)
 					.show();
