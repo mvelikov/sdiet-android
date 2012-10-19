@@ -24,7 +24,7 @@ import android.widget.Toast;
 public class MainActivity extends FragmentActivity {
 	static final int ID_DIALOG = 1;
 	private static final int REQUEST_CODE = 2;
-	private SharedPreferences mPrefs;
+	public static SharedPreferences mPrefs;
 	public int mDay;
 	private int mMonth;
 	private int mYear;
@@ -90,6 +90,19 @@ public class MainActivity extends FragmentActivity {
 			Toast.makeText(this, "No date was selected!", Toast.LENGTH_LONG)
 					.show();
 		}
+	}
+	public static void addListenerOnReset(Button resetButton) {
+
+		resetButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				mPrefs.edit().clear();
+				finish();
+				startActivity(getIntent());
+			}
+		});
 	}
 
 }

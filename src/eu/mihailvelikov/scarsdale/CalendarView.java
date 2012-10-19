@@ -38,6 +38,7 @@ public class CalendarView extends android.app.Fragment {
 	private ViewSwitcher calendarSwitcher;
 	private TextView currentMonth;
 	private CalendarAdapter calendarAdapter;
+	private Button resetButton;
 
 	public CalendarView() {
 		calendar = Calendar.getInstance();
@@ -61,7 +62,8 @@ public class CalendarView extends android.app.Fragment {
 				.findViewById(R.id.calendar_switcher);
 		currentMonth = (TextView) calendarLayout
 				.findViewById(R.id.current_month);
-
+		
+		resetButton = (Button) calendarLayout.findViewById(R.id.reset_btn);
 		calendarAdapter = new CalendarAdapter(getActivity(), calendar);
 		updateCurrentMonth();
 
@@ -168,7 +170,7 @@ public class CalendarView extends android.app.Fragment {
 		}
 	}
 	
-	/*private final class ResetBtnClickListener implements OnClickListener {
+	private final class ResetBtnClickListener implements OnClickListener {
 
 		@Override
 		public void onClick(View v) {
@@ -179,18 +181,18 @@ public class CalendarView extends android.app.Fragment {
 	}
 	
 	protected void addListenerOnReset() {
-		Button resetButton = (Button) findViewById(R.id.reset_btn);
+
 		resetButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				mPrefs.edit().clear();
-				finish();
-				startActivity(getIntent());
+				MainActivity.mPrefs.edit().clear();
+				MainActivity.mPrefs.edit().apply();
+
 			}
 		});
-	}*/
+	}
 
 	/*private final class SwipeGesture extends SimpleOnGestureListener {
 		private final int swipeMinDistance;
