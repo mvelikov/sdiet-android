@@ -7,9 +7,12 @@ import java.util.Locale;
 import eu.mihailvelikov.scarsdale.R;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -38,7 +41,9 @@ public class CalendarView extends android.app.Fragment {
 	private ViewSwitcher calendarSwitcher;
 	private TextView currentMonth;
 	private CalendarAdapter calendarAdapter;
-	private Button resetButton;
+	//private ViewGroup mainLayout;
+	private RelativeLayout calendarLayout;
+	//private Button resetButton;
 
 	public CalendarView() {
 		calendar = Calendar.getInstance();
@@ -48,9 +53,9 @@ public class CalendarView extends android.app.Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-
+		//mainLayout = (ViewGroup) 
 		// int date = getActivity()
-		final RelativeLayout calendarLayout = (RelativeLayout) inflater
+		calendarLayout = (RelativeLayout) inflater
 				.inflate(R.layout.calendar, null);
 		final GridView calendarDayGrid = (GridView) calendarLayout
 				.findViewById(R.id.calendar_days_grid);
@@ -63,7 +68,8 @@ public class CalendarView extends android.app.Fragment {
 		currentMonth = (TextView) calendarLayout
 				.findViewById(R.id.current_month);
 		
-		resetButton = (Button) calendarLayout.findViewById(R.id.reset_btn);
+		final Button resetButton = (Button) calendarLayout.findViewById(R.id.reset_btn);
+		resetButton.setOnClickListener(new ResetBtnClickListener());
 		calendarAdapter = new CalendarAdapter(getActivity(), calendar);
 		updateCurrentMonth();
 
@@ -98,6 +104,10 @@ public class CalendarView extends android.app.Fragment {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
+			final ProgressDialog progressBar = new ProgressDialog(view.getContext());
+			progressBar.setCancelable(false);
+			progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+			progressBar.show();
 			final TextView dayView = (TextView) view.findViewById(R.id.date);
 			boolean isDayClickable = dayView.isClickable();
 
@@ -124,9 +134,10 @@ public class CalendarView extends android.app.Fragment {
 					//i.putExtra("start");
 					
 					getActivity().startActivity(i);
+					getActivity().overridePendingTransition( R.anim.in_from_right, R.anim.out_to_right);
 				}
 			}
-			
+			progressBar.dismiss();
 		}
 		
 	}
@@ -175,24 +186,34 @@ public class CalendarView extends android.app.Fragment {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			addListenerOnReset();
+			Editor prefEditor = MainActivity.mPrefs.edit();
+			prefEditor.clear();
+			prefEditor.apply();
+			//updateCurrentMonth();
+			Intent main = new Intent(getActivity(), MainActivity.class);
+			getActivity().startActivity(main);
+			getActivity().finish();
 		}
 		
 	}
 	
-	protected void addListenerOnReset() {
-
-		resetButton.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				MainActivity.mPrefs.edit().clear();
-				MainActivity.mPrefs.edit().apply();
-
-			}
-		});
-	}
+//	protected void addListenerOnReset() {
+//
+//		resetButton.setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				// TODO Auto-generated method stub
+//				//MainActivity.mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+//				Editor prefEditor = MainActivity.mPrefs.edit();
+//				prefEditor.clear();
+//				prefEditor.apply();
+//				//ViewGroup vg = (ViewGroup) findViewById(R.layout.main);
+//				((ViewGroup) v).invalidate();
+//
+//			}
+//		});
+//	}
 
 	/*private final class SwipeGesture extends SimpleOnGestureListener {
 		private final int swipeMinDistance;

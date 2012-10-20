@@ -24,35 +24,26 @@ public class DietDayActivity extends Activity {
 
 	private SharedPreferences mPrefs;
 	protected GregorianCalendar mStartDate;
-	//protected GregorianCalendar mEndDate;
+
+	// protected GregorianCalendar mEndDate;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.diet_day);
+
 		Calendar calendar = Calendar.getInstance();
 		Intent intent = getIntent();
 
 		mYear = intent.getIntExtra("selectedYear", calendar.get(Calendar.YEAR));
-		mMonth = intent.getIntExtra("selectedMonth", calendar.get(Calendar.MONTH));
+		mMonth = intent.getIntExtra("selectedMonth",
+				calendar.get(Calendar.MONTH));
 		mDay = intent.getIntExtra("selectedDay", calendar.get(Calendar.DATE));
-		
+
 		mStartDay = intent.getIntExtra("startDay", 1);
 		mStartMonth = intent.getIntExtra("startMonth", 1);
 		mStartYear = intent.getIntExtra("startYear", 1970);
 
-		/*mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-		if (mPrefs.contains("day") && mPrefs.contains("month")
-				&& mPrefs.contains("year")) {
-			mStartDay = mPrefs.getInt("day", 1);
-			mStartMonth = mPrefs.getInt("month", 1);
-			mStartYear = mPrefs.getInt("year", 1970);
-
-		} else {
-			Toast.makeText(this, R.string.missing_start_end_dates,
-					Toast.LENGTH_LONG).show();
-			finish();
-		}*/
 		mStartDate = new GregorianCalendar(mStartYear, mStartMonth, mStartDay);
-
 
 		GregorianCalendar selectedDate = new GregorianCalendar(mYear, mMonth,
 				mDay);
@@ -68,8 +59,6 @@ public class DietDayActivity extends Activity {
 			currentDietDay = daysBetween(mStartDate, selectedDate);
 		}
 
-		setContentView(R.layout.diet_day);
-
 		TextView viewDinnerText = (TextView) findViewById(R.id.dinner_text);
 
 		String[] dinnerArray = getResources().getStringArray(
@@ -77,7 +66,7 @@ public class DietDayActivity extends Activity {
 		String[] lunchArray = getResources()
 				.getStringArray(R.array.lunch_array);
 		TextView viewLunchText = (TextView) findViewById(R.id.lunch_text);
-		
+
 		TextView viewTitle = (TextView) findViewById(R.id.title);
 		String titleStr = getString(R.string.day);
 		String title = String.format(titleStr, currentDietDay + 1);

@@ -34,18 +34,14 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
+
 		TimeZone.setDefault(TimeZone.getTimeZone("Europe/London"));
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-		if (mPrefs.contains("day") && mPrefs.contains("month")
-				&& mPrefs.contains("year")) {
-			mDay = mPrefs.getInt("day", 1);
-			mMonth = mPrefs.getInt("month", 1);
-			mYear = mPrefs.getInt("year", 1970);
-
-		} else {
+		if (!readPreferences()) {
 			Intent intent = new Intent(this, DatePickerActivity.class);
 			startActivityForResult(intent, REQUEST_CODE);
-
+			//return;
 		}
 		mStartDate = new GregorianCalendar(mYear, mMonth, mDay);
 
@@ -55,7 +51,7 @@ public class MainActivity extends FragmentActivity {
 		CalendarAdapter.setEndDate(mEndDate);
 
 		// savedInstanceState.putInt("day", mDay);
-		setContentView(R.layout.main);
+		
 		android.app.Fragment calendarView = new CalendarView();
 		// CalendarView.setStartDate(mStartDate);
 
@@ -66,6 +62,29 @@ public class MainActivity extends FragmentActivity {
 		//addListenerOnReset();
 	}
 
+	protected boolean readPreferences()
+	{
+		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		if (mPrefs.contains("day") && mPrefs.contains("month")
+				&& mPrefs.contains("year")) {
+			mDay = mPrefs.getInt("day", 1);
+			mMonth = mPrefs.getInt("month", 1);
+			mYear = mPrefs.getInt("year", 1970);
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	protected void clearPreferences()
+	{
+		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		Editor prefEditor = mPrefs.edit();
+		prefEditor.clear();
+		prefEditor.apply();
+		ViewGroup vg = (ViewGroup) findViewById(R.layout.main);
+		vg.invalidate();
+	}
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
 			Bundle extras = data.getExtras();
@@ -98,9 +117,7 @@ public class MainActivity extends FragmentActivity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				mPrefs.edit().clear();
-				finish();
-				startActivity(getIntent());
+				
 			}
 		});
 	}
