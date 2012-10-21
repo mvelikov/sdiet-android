@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
+import com.actionbarsherlock.app.SherlockActivity;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,7 +15,7 @@ import android.preference.PreferenceManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class DietDayActivity extends Activity {
+public class DietDayActivity extends SherlockActivity {
 
 	protected int mYear;
 	protected int mMonth;

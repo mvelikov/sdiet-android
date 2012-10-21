@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
+import com.actionbarsherlock.view.MenuItem;
+
 import eu.mihailvelikov.scarsdale.R;
 
 import android.app.Activity;
@@ -34,16 +36,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
-public class CalendarView extends android.app.Fragment {
+public class CalendarView extends android.support.v4.app.Fragment {
 	// protected OnDateSelectedListener mListener;
 	protected final Calendar calendar;
 	private final Locale locale;
 	private ViewSwitcher calendarSwitcher;
 	private TextView currentMonth;
 	private CalendarAdapter calendarAdapter;
-	//private ViewGroup mainLayout;
+	// private ViewGroup mainLayout;
 	private RelativeLayout calendarLayout;
-	//private Button resetButton;
+
+	// private Button resetButton;
 
 	public CalendarView() {
 		calendar = Calendar.getInstance();
@@ -53,23 +56,23 @@ public class CalendarView extends android.app.Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		//mainLayout = (ViewGroup) 
+		// mainLayout = (ViewGroup)
 		// int date = getActivity()
-		calendarLayout = (RelativeLayout) inflater
-				.inflate(R.layout.calendar, null);
+		calendarLayout = (RelativeLayout) inflater.inflate(R.layout.calendar,
+				null);
 		final GridView calendarDayGrid = (GridView) calendarLayout
 				.findViewById(R.id.calendar_days_grid);
-		/*final GestureDetector swipeDetector = new GestureDetector(
-				getActivity(), new SwipeGesture(getActivity()));*/
+		/*
+		 * final GestureDetector swipeDetector = new GestureDetector(
+		 * getActivity(), new SwipeGesture(getActivity()));
+		 */
 		final GridView calendarGrid = (GridView) calendarLayout
 				.findViewById(R.id.calendar_grid);
 		calendarSwitcher = (ViewSwitcher) calendarLayout
 				.findViewById(R.id.calendar_switcher);
 		currentMonth = (TextView) calendarLayout
 				.findViewById(R.id.current_month);
-		
-		final Button resetButton = (Button) calendarLayout.findViewById(R.id.reset_btn);
-		resetButton.setOnClickListener(new ResetBtnClickListener());
+
 		calendarAdapter = new CalendarAdapter(getActivity(), calendar);
 		updateCurrentMonth();
 
@@ -82,12 +85,12 @@ public class CalendarView extends android.app.Fragment {
 		calendarGrid.setOnItemClickListener(new DayItemClickListener());
 
 		calendarGrid.setAdapter(calendarAdapter);
-		/*calendarGrid.setOnTouchListener(new OnTouchListener() {
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				return swipeDetector.onTouchEvent(event);
-			}
-		});*/
+		/*
+		 * calendarGrid.setOnTouchListener(new OnTouchListener() {
+		 * 
+		 * @Override public boolean onTouch(View v, MotionEvent event) { return
+		 * swipeDetector.onTouchEvent(event); } });
+		 */
 		calendarDayGrid.setAdapter(new ArrayAdapter<String>(getActivity(),
 				R.layout.day_item, getResources().getStringArray(
 						R.array.days_array)));
@@ -104,7 +107,8 @@ public class CalendarView extends android.app.Fragment {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
-			final ProgressDialog progressBar = new ProgressDialog(view.getContext());
+			final ProgressDialog progressBar = new ProgressDialog(
+					view.getContext());
 			progressBar.setCancelable(false);
 			progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 			progressBar.show();
@@ -116,10 +120,8 @@ public class CalendarView extends android.app.Fragment {
 				int year = calendar.get(Calendar.YEAR);
 				int month = calendar.get(Calendar.MONTH);
 				int day = Integer.valueOf(String.valueOf(text));
-				calendarAdapter.setSelected(year,
-						month,
-						day);
-				
+				calendarAdapter.setSelected(year, month, day);
+
 				if (!isDayClickable) {
 					Log.i("isDietString", "Diet");
 					Intent i = new Intent(getActivity(), DietDayActivity.class);
@@ -127,19 +129,23 @@ public class CalendarView extends android.app.Fragment {
 					i.putExtra("selectedYear", year);
 					i.putExtra("selectedMonth", month);
 					i.putExtra("selectedDay", day);
-					i.putExtra("startYear", MainActivity.mStartDate.get(Calendar.YEAR));
-					i.putExtra("startMonth", MainActivity.mStartDate.get(Calendar.MONTH));
-					i.putExtra("startDay", MainActivity.mStartDate.get(Calendar.DATE));
-					//i.putExtra("end", MainActivity.mEndDate);
-					//i.putExtra("start");
-					
+					i.putExtra("startYear",
+							MainActivity.mStartDate.get(Calendar.YEAR));
+					i.putExtra("startMonth",
+							MainActivity.mStartDate.get(Calendar.MONTH));
+					i.putExtra("startDay",
+							MainActivity.mStartDate.get(Calendar.DATE));
+					// i.putExtra("end", MainActivity.mEndDate);
+					// i.putExtra("start");
+
 					getActivity().startActivity(i);
-					getActivity().overridePendingTransition( R.anim.in_from_right, R.anim.out_to_right);
+					getActivity().overridePendingTransition(
+							R.anim.in_from_right, R.anim.out_to_right);
 				}
 			}
 			progressBar.dismiss();
 		}
-		
+
 	}
 
 	protected final void onNextMonth() {
@@ -180,63 +186,43 @@ public class CalendarView extends android.app.Fragment {
 			onPreviousMonth();
 		}
 	}
+
 	
-	private final class ResetBtnClickListener implements OnClickListener {
 
-		@Override
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			Editor prefEditor = MainActivity.mPrefs.edit();
-			prefEditor.clear();
-			prefEditor.apply();
-			//updateCurrentMonth();
-			Intent main = new Intent(getActivity(), MainActivity.class);
-			getActivity().startActivity(main);
-			getActivity().finish();
-		}
-		
-	}
-	
-//	protected void addListenerOnReset() {
-//
-//		resetButton.setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				// TODO Auto-generated method stub
-//				//MainActivity.mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-//				Editor prefEditor = MainActivity.mPrefs.edit();
-//				prefEditor.clear();
-//				prefEditor.apply();
-//				//ViewGroup vg = (ViewGroup) findViewById(R.layout.main);
-//				((ViewGroup) v).invalidate();
-//
-//			}
-//		});
-//	}
+	// protected void addListenerOnReset() {
+	//
+	// resetButton.setOnClickListener(new OnClickListener() {
+	//
+	// @Override
+	// public void onClick(View v) {
+	// // TODO Auto-generated method stub
+	// //MainActivity.mPrefs =
+	// PreferenceManager.getDefaultSharedPreferences(this);
+	// Editor prefEditor = MainActivity.mPrefs.edit();
+	// prefEditor.clear();
+	// prefEditor.apply();
+	// //ViewGroup vg = (ViewGroup) findViewById(R.layout.main);
+	// ((ViewGroup) v).invalidate();
+	//
+	// }
+	// });
+	// }
 
-	/*private final class SwipeGesture extends SimpleOnGestureListener {
-		private final int swipeMinDistance;
-		private final int swipeThresholdVelocity;
-
-		public SwipeGesture(Context context) {
-			final ViewConfiguration viewConfig = ViewConfiguration.get(context);
-			swipeMinDistance = viewConfig.getScaledTouchSlop();
-			swipeThresholdVelocity = viewConfig.getScaledMinimumFlingVelocity();
-		}
-
-		@Override
-		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
-				float velocityY) {
-			if (e1.getX() - e2.getX() > swipeMinDistance
-					&& Math.abs(velocityX) > swipeThresholdVelocity) {
-				onNextMonth();
-			} else if (e2.getX() - e1.getX() > swipeMinDistance
-					&& Math.abs(velocityX) > swipeThresholdVelocity) {
-				onPreviousMonth();
-			}
-			return false;
-		}
-	}
-*/
+	/*
+	 * private final class SwipeGesture extends SimpleOnGestureListener {
+	 * private final int swipeMinDistance; private final int
+	 * swipeThresholdVelocity;
+	 * 
+	 * public SwipeGesture(Context context) { final ViewConfiguration viewConfig
+	 * = ViewConfiguration.get(context); swipeMinDistance =
+	 * viewConfig.getScaledTouchSlop(); swipeThresholdVelocity =
+	 * viewConfig.getScaledMinimumFlingVelocity(); }
+	 * 
+	 * @Override public boolean onFling(MotionEvent e1, MotionEvent e2, float
+	 * velocityX, float velocityY) { if (e1.getX() - e2.getX() >
+	 * swipeMinDistance && Math.abs(velocityX) > swipeThresholdVelocity) {
+	 * onNextMonth(); } else if (e2.getX() - e1.getX() > swipeMinDistance &&
+	 * Math.abs(velocityX) > swipeThresholdVelocity) { onPreviousMonth(); }
+	 * return false; } }
+	 */
 }

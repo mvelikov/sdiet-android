@@ -4,6 +4,11 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.ActionMode;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
 import eu.mihailvelikov.scarsdale.R;
 
 import android.app.FragmentTransaction;
@@ -15,13 +20,10 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.Button;
+
 import android.widget.Toast;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends SherlockFragmentActivity {
 	static final int ID_DIALOG = 1;
 	private static final int REQUEST_CODE = 2;
 	public static SharedPreferences mPrefs;
@@ -30,6 +32,62 @@ public class MainActivity extends FragmentActivity {
 	private int mYear;
 	public static GregorianCalendar mStartDate;
 	public static GregorianCalendar mEndDate;
+	
+	private final int MENU_RESET = 0;
+    private final int MENU_INFO = 1;
+    private final int MENU_ABOUT = 2;
+
+	public boolean onCreateOptionsMenu(Menu menu) {
+
+		menu.add(0, MENU_RESET, 0, R.string.reset) //dd(R.string.reset)
+				.setIcon(R.drawable.recycle_bin)
+				.setTitle(R.string.reset)
+				.setShowAsAction(
+						MenuItem.SHOW_AS_ACTION_WITH_TEXT
+								| MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+		menu.add(0, MENU_INFO, 0, R.string.info)
+				.setIcon(R.drawable.info_plain)
+				.setTitle(R.string.info)
+				.setShowAsAction(
+						MenuItem.SHOW_AS_ACTION_WITH_TEXT
+								| MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+		menu.add(0, MENU_ABOUT, 0, R.string.about)
+				.setIcon(R.drawable.user)
+				.setTitle(R.string.about)
+				.setShowAsAction(
+						MenuItem.SHOW_AS_ACTION_WITH_TEXT
+								| MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+		return true;
+	}
+
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case MENU_RESET:
+			clearPreferences();
+			return true;
+		case MENU_INFO:
+			startInfoActivity();
+			return true;
+		case MENU_ABOUT:
+			startAboutActivity();
+			return true;
+		}
+		return false;
+	}
+
+	private void startAboutActivity() {
+		Intent i = new Intent(this, AboutActivity.class);
+		startActivity(i);
+	}
+
+	private void startInfoActivity() {
+		// TODO Auto-generated method stub
+		Intent i = new Intent(this, InfoActivity.class);
+		startActivity(i);
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +99,7 @@ public class MainActivity extends FragmentActivity {
 		if (!readPreferences()) {
 			Intent intent = new Intent(this, DatePickerActivity.class);
 			startActivityForResult(intent, REQUEST_CODE);
-			//return;
+			// return;
 		}
 		mStartDate = new GregorianCalendar(mYear, mMonth, mDay);
 
@@ -51,19 +109,17 @@ public class MainActivity extends FragmentActivity {
 		CalendarAdapter.setEndDate(mEndDate);
 
 		// savedInstanceState.putInt("day", mDay);
-		
-		android.app.Fragment calendarView = new CalendarView();
+
+		android.support.v4.app.Fragment calendarView = new CalendarView();
 		// CalendarView.setStartDate(mStartDate);
 
-		
-
-		FragmentTransaction ft = getFragmentManager().beginTransaction();
+		android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager()
+				.beginTransaction();
 		ft.add(android.R.id.content, calendarView).commit();
-		//addListenerOnReset();
+		// addListenerOnReset();
 	}
 
-	protected boolean readPreferences()
-	{
+	protected boolean readPreferences() {
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		if (mPrefs.contains("day") && mPrefs.contains("month")
 				&& mPrefs.contains("year")) {
@@ -75,16 +131,16 @@ public class MainActivity extends FragmentActivity {
 			return false;
 		}
 	}
-	
-	protected void clearPreferences()
-	{
-		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-		Editor prefEditor = mPrefs.edit();
+
+	protected void clearPreferences() {
+		Editor prefEditor = MainActivity.mPrefs.edit();
 		prefEditor.clear();
-		prefEditor.apply();
-		ViewGroup vg = (ViewGroup) findViewById(R.layout.main);
-		vg.invalidate();
+		prefEditor.commit();
+		Intent main = new Intent(this, MainActivity.class);
+		startActivity(main);
+		finish();
 	}
+
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
 			Bundle extras = data.getExtras();
@@ -96,30 +152,13 @@ public class MainActivity extends FragmentActivity {
 			edit.putInt("year", mYear);
 			edit.putInt("month", mMonth);
 			edit.putInt("day", mDay);
-			edit.apply();
+			edit.commit();
 
-			finish();
 			startActivity(getIntent());
-			/*
-			 * ViewGroup vg = (ViewGroup) findViewById(R.layout.main);
-			 * vg.invalidate();
-			 */
-
+			finish();
 		} else {
 			Toast.makeText(this, "No date was selected!", Toast.LENGTH_LONG)
 					.show();
 		}
 	}
-	public static void addListenerOnReset(Button resetButton) {
-
-		resetButton.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-	}
-
 }
