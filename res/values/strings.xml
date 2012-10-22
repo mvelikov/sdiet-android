@@ -88,14 +88,19 @@
     Постепенно  диетата е придобила популярност, поради това че е приятна за вкуса, безопасна,
     засищаща и неусложнена. Тя дава резултат в разумно кратък период от време. И най-важното от
     всичко способства да се развие модел на правилни хранителни навици за цял живот, така че
-    загубеното тегло да остане загубено.</string>
+    загубеното тегло да остане загубено.\n
+    <a href="http://scardsdale.mihailvelikov.eu/about" target="_blank">Прочети повече http://scardsdale.mihailvelikov.eu/about</a></string>
     <string name="info_title">За диетата</string>
     <string name="info_doctor">Диетата „Скарсдейл” на д-р Хърман Тарноуър - програма за отслабване за цял живот</string>
     <string name="about_title">За програмиста</string>
+    <string name="developed_title">Разработил:</string>
+    <string name="me">Михаил Боянов Великов</string>
+    <string name="position">Уеб програмист, програмист на мобилни приложения, програмист на облачни системи</string>
+    <string name="email_title">Email:</string>
     <string name="about_text">Разработил:\n
 Михаил Боянов Великов\n
 Уеб програмист, програмист на мобилни приложения, програмист на облачни системи\n
-Email: <a href="mailto:separate.dining@mihailvelikov.eu">separate.dining@mihailvelikov.eu</a>\n
+Email: <a href="mailto:scarsdale@mihailvelikov.eu">scarsdale@mihailvelikov.eu</a>\n
 Web site: <a href="http://mihailvelikov.eu" target="_blank">http://mihailvelikov.eu</a>
         </string>
 </resources>

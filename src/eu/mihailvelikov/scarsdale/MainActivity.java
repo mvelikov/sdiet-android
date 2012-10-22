@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
@@ -32,15 +33,16 @@ public class MainActivity extends SherlockFragmentActivity {
 	private int mYear;
 	public static GregorianCalendar mStartDate;
 	public static GregorianCalendar mEndDate;
-	
+
 	private final int MENU_RESET = 0;
-    private final int MENU_INFO = 1;
-    private final int MENU_ABOUT = 2;
+	private final int MENU_INFO = 1;
+	private final int MENU_ABOUT = 2;
 
 	public boolean onCreateOptionsMenu(Menu menu) {
 
-		menu.add(0, MENU_RESET, 0, R.string.reset) //dd(R.string.reset)
-				.setIcon(R.drawable.recycle_bin)
+		menu.add(0, MENU_RESET, 0, R.string.reset)
+				// dd(R.string.reset)
+				.setIcon(R.drawable.trash_black)
 				.setTitle(R.string.reset)
 				.setShowAsAction(
 						MenuItem.SHOW_AS_ACTION_WITH_TEXT
@@ -74,6 +76,12 @@ public class MainActivity extends SherlockFragmentActivity {
 		case MENU_ABOUT:
 			startAboutActivity();
 			return true;
+		case android.R.id.home:
+			// app icon in action bar clicked; go home
+			Intent intent = new Intent(this, MainActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent);
+			return true;
 		}
 		return false;
 	}
@@ -93,6 +101,8 @@ public class MainActivity extends SherlockFragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		ActionBar supportActionBar = getSupportActionBar();
+		supportActionBar.setHomeButtonEnabled(true);
 
 		TimeZone.setDefault(TimeZone.getTimeZone("Europe/London"));
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);

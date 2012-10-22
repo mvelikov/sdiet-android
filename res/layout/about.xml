@@ -5,12 +5,13 @@
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/about_wrapper"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="6dp"
         android:orientation="vertical" >
         <TextView 
-            android:id="@+id/info_doctor"
+            android:id="@+id/about_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/about_title"
@@ -18,11 +19,11 @@
             android:textAppearance="?android:attr/textAppearanceLarge" 
             />
         <TextView 
-            android:id="@+id/info_text"
+            android:id="@+id/about_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/about_text"
-            android:autoLink="web"
+            android:autoLink="all"
             android:textAppearance="?android:attr/textAppearanceMedium"
             />
     </LinearLayout>
