@@ -11,7 +11,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 
 
-public class DatePickerFragment extends DialogFragment {
+public class DatePickerFragment extends android.support.v4.app.DialogFragment {
 
 
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -21,6 +21,8 @@ public class DatePickerFragment extends DialogFragment {
 		int year = c.get(Calendar.YEAR);
 		DatePickerDialog dpd = new DatePickerDialog(getActivity(), (DatePickerActivity) getActivity(), year, month, day);
 		long thirteenDaysEarlier = System.currentTimeMillis() - 1123200000; // - 1000;
+		long thirtyDaysAfter = System.currentTimeMillis() + 2592000000l; // 30days
+		dpd.getDatePicker().setMaxDate(thirtyDaysAfter);
 		dpd.getDatePicker().setMinDate(thirteenDaysEarlier);
 		return dpd;
 	}
