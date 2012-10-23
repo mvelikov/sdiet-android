@@ -76,12 +76,7 @@ public class MainActivity extends SherlockFragmentActivity {
 		case MENU_ABOUT:
 			startAboutActivity();
 			return true;
-		case android.R.id.home:
-			// app icon in action bar clicked; go home
-			Intent intent = new Intent(this, MainActivity.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivity(intent);
-			return true;
+
 		}
 		return false;
 	}
@@ -101,13 +96,12 @@ public class MainActivity extends SherlockFragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		ActionBar supportActionBar = getSupportActionBar();
-		supportActionBar.setHomeButtonEnabled(true);
 
 		TimeZone.setDefault(TimeZone.getTimeZone("Europe/London"));
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		if (!readPreferences()) {
 			Intent intent = new Intent(this, DatePickerActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivityForResult(intent, REQUEST_CODE);
 			// return;
 		}
@@ -126,6 +120,7 @@ public class MainActivity extends SherlockFragmentActivity {
 		android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager()
 				.beginTransaction();
 		ft.add(android.R.id.content, calendarView).commit();
+		
 		// addListenerOnReset();
 	}
 
@@ -147,6 +142,7 @@ public class MainActivity extends SherlockFragmentActivity {
 		prefEditor.clear();
 		prefEditor.commit();
 		Intent main = new Intent(this, MainActivity.class);
+		main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(main);
 		finish();
 	}
