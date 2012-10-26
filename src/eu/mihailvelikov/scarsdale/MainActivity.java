@@ -39,7 +39,7 @@ public class MainActivity extends SherlockFragmentActivity {
 	private final int MENU_ABOUT = 2;
 
 	public boolean onCreateOptionsMenu(Menu menu) {
-
+		
 		menu.add(0, MENU_RESET, 0, R.string.reset)
 				// dd(R.string.reset)
 				.setIcon(R.drawable.trash_black)
@@ -64,6 +64,8 @@ public class MainActivity extends SherlockFragmentActivity {
 
 		return true;
 	}
+	
+	
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -78,7 +80,7 @@ public class MainActivity extends SherlockFragmentActivity {
 			return true;
 
 		}
-		return false;
+		return super.onOptionsItemSelected(item);
 	}
 
 	private void startAboutActivity() {
@@ -106,7 +108,7 @@ public class MainActivity extends SherlockFragmentActivity {
 			// return;
 		}
 		mStartDate = new GregorianCalendar(mYear, mMonth, mDay);
-
+		CalendarView.mStartDate = mStartDate;
 		mEndDate = (GregorianCalendar) mStartDate.clone();
 		mEndDate.add(Calendar.DAY_OF_MONTH, 14);
 		CalendarAdapter.setStartDate(mStartDate);

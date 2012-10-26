@@ -45,6 +45,7 @@ public class CalendarView extends android.support.v4.app.Fragment {
 	private CalendarAdapter calendarAdapter;
 	// private ViewGroup mainLayout;
 	private RelativeLayout calendarLayout;
+	public static GregorianCalendar mStartDate;
 
 	// private Button resetButton;
 
@@ -107,22 +108,17 @@ public class CalendarView extends android.support.v4.app.Fragment {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
-			final ProgressDialog progressBar = new ProgressDialog(
-					view.getContext());
-			progressBar.setCancelable(false);
-			progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-			progressBar.show();
+
 			final TextView dayView = (TextView) view.findViewById(R.id.date);
-			boolean isDayClickable = dayView.isClickable();
+			final boolean isDayClickable = dayView.isClickable();
+			if (!isDayClickable) {
+				final CharSequence text = dayView.getText();
+				if (text != null && !"".equals(text)) {
+					final int year = calendar.get(Calendar.YEAR);
+					final int month = calendar.get(Calendar.MONTH);
+					final int day = Integer.valueOf(String.valueOf(text));
+					calendarAdapter.setSelected(year, month, day);
 
-			final CharSequence text = dayView.getText();
-			if (text != null && !"".equals(text)) {
-				int year = calendar.get(Calendar.YEAR);
-				int month = calendar.get(Calendar.MONTH);
-				int day = Integer.valueOf(String.valueOf(text));
-				calendarAdapter.setSelected(year, month, day);
-
-				if (!isDayClickable) {
 					Log.i("isDietString", "Diet");
 					Intent i = new Intent(getActivity(), DietDayActivity.class);
 
@@ -130,20 +126,18 @@ public class CalendarView extends android.support.v4.app.Fragment {
 					i.putExtra("selectedMonth", month);
 					i.putExtra("selectedDay", day);
 					i.putExtra("startYear",
-							MainActivity.mStartDate.get(Calendar.YEAR));
+							mStartDate.get(Calendar.YEAR));
 					i.putExtra("startMonth",
-							MainActivity.mStartDate.get(Calendar.MONTH));
+							mStartDate.get(Calendar.MONTH));
 					i.putExtra("startDay",
-							MainActivity.mStartDate.get(Calendar.DATE));
+							mStartDate.get(Calendar.DATE));
 					// i.putExtra("end", MainActivity.mEndDate);
 					// i.putExtra("start");
 
 					getActivity().startActivity(i);
-					getActivity().overridePendingTransition(
-							R.anim.in_from_right, R.anim.out_to_right);
 				}
 			}
-			progressBar.dismiss();
+
 		}
 
 	}
@@ -186,8 +180,6 @@ public class CalendarView extends android.support.v4.app.Fragment {
 			onPreviousMonth();
 		}
 	}
-
-	
 
 	// protected void addListenerOnReset() {
 	//

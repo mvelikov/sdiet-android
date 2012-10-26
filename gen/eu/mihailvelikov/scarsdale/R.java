@@ -796,16 +796,18 @@ containing a value of this type.
         public static final int abs__tab_selected_pressed_holo=0x7f020053;
         public static final int abs__tab_unselected_pressed_holo=0x7f020054;
         public static final int diet_day_background=0x7f020055;
-        public static final int ic_launcher=0x7f020056;
-        public static final int info_plain=0x7f020057;
-        public static final int normal_background=0x7f020058;
-        public static final int recycle_bin=0x7f020059;
-        public static final int selected_background=0x7f02005a;
-        public static final int selected_diet_day_background=0x7f02005b;
-        public static final int today_background=0x7f02005c;
-        public static final int today_diet_day_background=0x7f02005d;
-        public static final int trash_black=0x7f02005e;
-        public static final int user=0x7f02005f;
+        public static final int grey_background_pattern=0x7f020056;
+        public static final int grey_background_pattern_tile=0x7f020057;
+        public static final int ic_launcher=0x7f020058;
+        public static final int info_plain=0x7f020059;
+        public static final int normal_background=0x7f02005a;
+        public static final int recycle_bin=0x7f02005b;
+        public static final int selected_background=0x7f02005c;
+        public static final int selected_diet_day_background=0x7f02005d;
+        public static final int today_background=0x7f02005e;
+        public static final int today_diet_day_background=0x7f02005f;
+        public static final int trash_black=0x7f020060;
+        public static final int user=0x7f020061;
     }
     public static final class id {
         public static final int about_text=0x7f050012;
