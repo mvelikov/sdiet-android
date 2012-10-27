@@ -17,6 +17,7 @@
             android:layout_alignParentLeft="true"
             android:clickable="true"
             android:gravity="center"
+            android:textColor="#5a5a5a"
             android:text="@string/previous_month_placeholder" />
 
         <TextView
@@ -27,6 +28,7 @@
             android:layout_toRightOf="@id/next_month"
             android:clickable="true"
             android:gravity="center"
+            android:textColor="#5a5a5a"
             android:text="@string/next_month_placeholder" />
 
         <TextView
@@ -38,7 +40,7 @@
             android:layout_toRightOf="@id/previous_month"
             android:gravity="center"
             android:text="@string/current_month_placeholder"
-            android:textColor="@android:color/darker_gray" />
+            android:textColor="#5a5a5a" />
     </RelativeLayout>
 
     <GridView
@@ -56,7 +58,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@id/calendar_days_grid"
-        android:background="@drawable/grey_background_pattern" >
+        android:background="@drawable/dark_grey_background_pattern_tile" >
 
         <GridView
             android:id="@+id/calendar_grid"
