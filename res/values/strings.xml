@@ -102,5 +102,9 @@
 Уеб програмист, програмист на мобилни приложения, програмист на облачни системи\n
 Email: <a href="mailto:scarsdale@mihailvelikov.eu">scarsdale@mihailvelikov.eu</a>\n
 Web site: <a href="http://mihailvelikov.eu" target="_blank">http://mihailvelikov.eu</a>
-        </string>
+    </string>
+    <string name="confirm_clear_preferences_title">Сигурни ли сте?</string>
+    <string name="new_diet_start">Ще изберете нова дата за начало на Вашата диета</string>
+    <string name="yes">Да</string>
+    <string name="no">Не</string>
 </resources>

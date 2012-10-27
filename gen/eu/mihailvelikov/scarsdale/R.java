@@ -950,6 +950,7 @@ containing a value of this type.
         public static final int app_name=0x7f0a000b;
         public static final int breakfast=0x7f0a000f;
         public static final int calendar=0x7f0a000a;
+        public static final int confirm_clear_preferences_title=0x7f0a0028;
         public static final int current_month_placeholder=0x7f0a000c;
         public static final int day=0x7f0a001a;
         public static final int day_breakfast=0x7f0a0012;
@@ -966,7 +967,9 @@ containing a value of this type.
         public static final int lunch_replace=0x7f0a0016;
         public static final int me=0x7f0a0024;
         public static final int missing_start_end_dates=0x7f0a0013;
+        public static final int new_diet_start=0x7f0a0029;
         public static final int next_month_placeholder=0x7f0a000e;
+        public static final int no=0x7f0a002b;
         public static final int position=0x7f0a0025;
         public static final int previous_month_placeholder=0x7f0a000d;
         public static final int problem_handling_date_differences=0x7f0a0014;
@@ -974,6 +977,7 @@ containing a value of this type.
         public static final int replace_title=0x7f0a0018;
         public static final int reset=0x7f0a001e;
         public static final int rules=0x7f0a001b;
+        public static final int yes=0x7f0a002a;
     }
     public static final class style {
         public static final int DialogWindowTitle_Sherlock=0x7f0b0033;

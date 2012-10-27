@@ -12,7 +12,9 @@ import com.actionbarsherlock.view.MenuItem;
 
 import eu.mihailvelikov.scarsdale.R;
 
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -39,7 +41,7 @@ public class MainActivity extends SherlockFragmentActivity {
 	private final int MENU_ABOUT = 2;
 
 	public boolean onCreateOptionsMenu(Menu menu) {
-		
+
 		menu.add(0, MENU_RESET, 0, R.string.reset)
 				// dd(R.string.reset)
 				.setIcon(R.drawable.trash_black)
@@ -64,8 +66,6 @@ public class MainActivity extends SherlockFragmentActivity {
 
 		return true;
 	}
-	
-	
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -122,7 +122,7 @@ public class MainActivity extends SherlockFragmentActivity {
 		android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager()
 				.beginTransaction();
 		ft.add(android.R.id.content, calendarView).commit();
-		
+
 		// addListenerOnReset();
 	}
 
@@ -140,13 +140,26 @@ public class MainActivity extends SherlockFragmentActivity {
 	}
 
 	protected void clearPreferences() {
-		Editor prefEditor = MainActivity.mPrefs.edit();
-		prefEditor.clear();
-		prefEditor.commit();
-		Intent main = new Intent(this, MainActivity.class);
-		main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		startActivity(main);
-		finish();
+		new AlertDialog.Builder(this).setIcon(R.drawable.ic_launcher)
+				.setTitle(R.string.confirm_clear_preferences_title)
+				.setMessage(R.string.new_diet_start)
+				.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface arg0, int arg1) {
+						Editor prefEditor = MainActivity.mPrefs.edit();
+						prefEditor.clear();
+						prefEditor.commit();
+						Intent main = new Intent(MainActivity.this, MainActivity.class);
+						main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						startActivity(main);
+						finish();
+					}
+					
+				})
+				.setNegativeButton(R.string.no, null).show();
+
+		
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
