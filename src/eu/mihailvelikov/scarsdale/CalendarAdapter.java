@@ -74,7 +74,7 @@ public class CalendarAdapter extends BaseAdapter {
 				view.setBackgroundResource(R.drawable.diet_day_background);
 				clickable = true;
 			} else if (currentItem.equals(today)) {
-				view.setBackgroundResource(R.drawable.today_background);
+				view.setBackgroundResource(R.drawable.today_diet_day_background);
 				clickable = true;
 			} else if (currentItem.equals(selected)) {
 				view.setBackgroundResource(R.drawable.selected_background);
