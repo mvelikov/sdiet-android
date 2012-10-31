@@ -15,7 +15,7 @@ import android.preference.PreferenceManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class DietDayActivity extends SherlockActivity {
+public class DietDayActivity extends SecondaryActivity {
 
 	protected int mYear;
 	protected int mMonth;
@@ -24,7 +24,6 @@ public class DietDayActivity extends SherlockActivity {
 	protected int mStartMonth;
 	protected int mStartYear;
 
-	private SharedPreferences mPrefs;
 	protected GregorianCalendar mStartDate;
 
 	// protected GregorianCalendar mEndDate;
@@ -33,6 +32,9 @@ public class DietDayActivity extends SherlockActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.diet_day);
 
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setHomeButtonEnabled(true);
+		
 		Calendar calendar = Calendar.getInstance();
 		Intent intent = getIntent();
 

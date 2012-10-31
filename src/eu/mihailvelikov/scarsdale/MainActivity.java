@@ -29,8 +29,8 @@ import android.widget.Toast;
 public class MainActivity extends SherlockFragmentActivity {
 	static final int ID_DIALOG = 1;
 	private static final int REQUEST_CODE = 2;
-	public static SharedPreferences mPrefs;
-	public int mDay;
+	private static SharedPreferences mPrefs;
+	private int mDay;
 	private int mMonth;
 	private int mYear;
 	public static GregorianCalendar mStartDate;
@@ -103,10 +103,11 @@ public class MainActivity extends SherlockFragmentActivity {
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		if (!readPreferences()) {
 			Intent intent = new Intent(this, DatePickerActivity.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			//intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivityForResult(intent, REQUEST_CODE);
 			// return;
 		}
+
 		mStartDate = new GregorianCalendar(mYear, mMonth, mDay);
 		CalendarView.mStartDate = mStartDate;
 		mEndDate = (GregorianCalendar) mStartDate.clone();
@@ -175,8 +176,8 @@ public class MainActivity extends SherlockFragmentActivity {
 			edit.putInt("day", mDay);
 			edit.commit();
 
-			startActivity(getIntent());
-			finish();
+			//startActivity(getIntent());
+			//finish();
 		} else {
 			Toast.makeText(this, "No date was selected!", Toast.LENGTH_LONG)
 					.show();
