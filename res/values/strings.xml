@@ -107,4 +107,7 @@ Web site: <a href="http://mihailvelikov.eu" target="_blank">http://mihailvelikov
     <string name="new_diet_start">Ще изберете нова дата за начало на Вашата диета</string>
     <string name="yes">Да</string>
     <string name="no">Не</string>
+    <string name="hello">Здравейте</string>
+    <string name="tip">В бяло е отбелязан текущият ден, в розово са отбелязани всички дни от Вашата диета, а в зелено всички останали.</string>
+    <string name="ok">Добре</string>
 </resources>

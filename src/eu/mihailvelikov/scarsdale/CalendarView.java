@@ -119,7 +119,6 @@ public class CalendarView extends android.support.v4.app.Fragment {
 					final int day = Integer.valueOf(String.valueOf(text));
 					calendarAdapter.setSelected(year, month, day);
 
-					Log.i("isDietString", "Diet");
 					Intent i = new Intent(getActivity(), DietDayActivity.class);
 
 					i.putExtra("selectedYear", year);

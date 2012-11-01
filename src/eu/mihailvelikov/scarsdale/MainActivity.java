@@ -10,8 +10,6 @@ import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
-import eu.mihailvelikov.scarsdale.R;
-
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
@@ -24,15 +22,17 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class MainActivity extends SherlockFragmentActivity {
+
 	static final int ID_DIALOG = 1;
 	private static final int REQUEST_CODE = 2;
 	private static SharedPreferences mPrefs;
-	private int mDay;
-	private int mMonth;
-	private int mYear;
+	private static int mDay;
+	private static int mMonth;
+	private static int mYear;
 	public static GregorianCalendar mStartDate;
 	public static GregorianCalendar mEndDate;
 
@@ -101,9 +101,16 @@ public class MainActivity extends SherlockFragmentActivity {
 
 		TimeZone.setDefault(TimeZone.getTimeZone("Europe/London"));
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		/*if (firstLoad()) {
+			showTips();
+			Editor edit = mPrefs.edit();
+			edit.putBoolean("secondVisit", true);
+			edit.commit();
+		}*/
+		
 		if (!readPreferences()) {
 			Intent intent = new Intent(this, DatePickerActivity.class);
-			//intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			// intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivityForResult(intent, REQUEST_CODE);
 			// return;
 		}
@@ -117,19 +124,45 @@ public class MainActivity extends SherlockFragmentActivity {
 
 		// savedInstanceState.putInt("day", mDay);
 
-		android.support.v4.app.Fragment calendarView = new CalendarView();
-		// CalendarView.setStartDate(mStartDate);
+		 android.support.v4.app.Fragment calendarView = new CalendarView();
+		 // CalendarView.setStartDate(mStartDate);
+		
+		 android.support.v4.app.FragmentTransaction ft =
+		 getSupportFragmentManager()
+		 .beginTransaction();
+		 ft.add(android.R.id.content, calendarView).commit();
+/*		// request TEST ads to avoid being disabled for clicking your own ads
+		AdRequest adRequest = new AdRequest();
 
-		android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager()
-				.beginTransaction();
-		ft.add(android.R.id.content, calendarView).commit();
+		// create a Banner Ad
+		adView = new AdView(this, AdSize.BANNER, MY_PUBLISHER_ID);
+		// call the main layout from xml
+		LinearLayout mainLayout = (LinearLayout) findViewById(R.id.main_layout);
 
+		// add the Banner Ad to our main layout
+		mainLayout.addView(adView);
+
+		// Initiate a request to load an ad in TEST mode. The test mode will
+		// work only on emulators and your specific test device, the users will
+		// get real ads.
+		adView.loadAd(adRequest);*/
 		// addListenerOnReset();
 	}
 
+
+	/*private boolean firstLoad() {
+		//mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		if (mPrefs.contains("secondVisit")) {
+			return false;
+		}
+		return true;
+	}*/
+
 	protected boolean readPreferences() {
-		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-		if (mPrefs.contains("day") && mPrefs.contains("month")
+		//mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		if (mDay > 0 && mMonth > 0 && mYear > 0) {
+			return true;
+		} else if (mPrefs.contains("day") && mPrefs.contains("month")
 				&& mPrefs.contains("year")) {
 			mDay = mPrefs.getInt("day", 1);
 			mMonth = mPrefs.getInt("month", 1);
@@ -139,28 +172,46 @@ public class MainActivity extends SherlockFragmentActivity {
 			return false;
 		}
 	}
+	
+	/*private void showTips() {
+		new AlertDialog.Builder(this)
+		.setIcon(R.drawable.ic_launcher)
+		.setTitle(R.string.hello)
+		.setMessage(R.string.tip)
+		.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int arg1) {
+				dialog.cancel();
+			}
+		}).show();
+		
+	}*/
+
 
 	protected void clearPreferences() {
-		new AlertDialog.Builder(this).setIcon(R.drawable.ic_launcher)
+		new AlertDialog.Builder(this)
+				.setIcon(R.drawable.ic_launcher)
 				.setTitle(R.string.confirm_clear_preferences_title)
 				.setMessage(R.string.new_diet_start)
-				.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+				.setPositiveButton(R.string.yes,
+						new DialogInterface.OnClickListener() {
 
-					@Override
-					public void onClick(DialogInterface arg0, int arg1) {
-						Editor prefEditor = MainActivity.mPrefs.edit();
-						prefEditor.clear();
-						prefEditor.commit();
-						Intent main = new Intent(MainActivity.this, MainActivity.class);
-						main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-						startActivity(main);
-						finish();
-					}
-					
-				})
-				.setNegativeButton(R.string.no, null).show();
+							@Override
+							public void onClick(DialogInterface dialog, int arg1) {
+								Editor prefEditor = MainActivity.mPrefs.edit();
+								prefEditor.clear();
+								prefEditor.commit();
+								mDay = mYear = mMonth = 0;
+								Intent main = new Intent(MainActivity.this,
+										MainActivity.class);
+								main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+								startActivity(main);
+								finish();
+							}
 
-		
+						}).setNegativeButton(R.string.no, null).show();
+
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -176,11 +227,20 @@ public class MainActivity extends SherlockFragmentActivity {
 			edit.putInt("day", mDay);
 			edit.commit();
 
-			//startActivity(getIntent());
-			//finish();
+			finish();
+			startActivity(getIntent());
+			
 		} else {
 			Toast.makeText(this, "No date was selected!", Toast.LENGTH_LONG)
 					.show();
 		}
 	}
+
+//	@Override
+//	public void onDestroy() {
+//		if (adView != null) {
+//			adView.destroy();
+//		}
+//		super.onDestroy();
+//	}
 }
